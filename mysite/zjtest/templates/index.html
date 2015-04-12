@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>zhoujia test,you are success</title>
+	<script type="text/javascript" src="jquery-1.10.2.min.js">
+	</script>
+	<script type="text/javascript">
+		
+	
+		function turnon(){
+			
+			location.href = "http://127.0.0.1:8000/zjtest/turnon";
+			
+		}
+		
+		function turnoff(){
+			
+			location.href = "http://127.0.0.1:8000/zjtest/turnoff";
+			
+		}
+		
+		function checkState(){
+			location.href = "http://127.0.0.1:8000/zjtest/checkComStatus";
+		}
+		
+		function loginComputer(){
+			
+		}
+		
+		function isOk(){
+			$.ajax({
+				type: "post", 
+				url: E_URL+"/login/out/"+user.sessionid, 
+				dataType: "json",
+		     	success: function (data) {
+					var href = location.href;
+					if( href.indexOf("/web/user/userinfo.html") > -1 ){
+						locationToHref("");
+					}
+					history.go(0);
+		     	}
+			});
+		}
+	</script>
+</head>
+<body>
+	<button onclick="checkState()">查看状态</button>
+	当前状态:
+	
+	<pan>{{0}}</pan>
+	
+	<button onclick="turnon()">开机</button>
+	<button onclick="turnoff()">关机</button>
+	<a href="https://120.132.66.186/" target="_blank">登录主机</a>
+	<div>执行结果：{{statusJson}}</div>
+	<!-- <h1>hello {{name}}! you are success</h1> -->
+</body>
+</html>
