@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-
+import settings
 urlpatterns = [
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'zjtest/turnon/$','zjtest.views.turnon'),
     url(r'zjtest/turnoff/$','zjtest.views.turnoff'),
     url(r'zjtest/checkComStatus/$','zjtest.views.checkComStatus'),
-    
+    url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_URL}),
 ]

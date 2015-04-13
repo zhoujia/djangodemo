@@ -6,23 +6,30 @@ import subprocess
 # Create your views here.
 
 def index(req):
-    return render_to_response('index.html', {'name':'zhoujia1227'})
+    return render_to_response('index.html', {'status':checkState()})
 
 def turnon(req):
     
     turnonCommStr = api_turnon()
-    responseJson = subprocess.call(["curl",turnonCommStr])
-    return render_to_response('index.html', {'statusJson':responseJson})
+    runJson = subprocess.call(["curl",turnonCommStr])
+
+    return render_to_response('index.html', {'statusJson':runJson,'status':checkState()})
 
 def turnoff(req):
     turnoffCommStr = api_turnoff()
-    responseJson = subprocess.call(["curl",turnoffCommStr])
-    return render_to_response('index.html', {'statusJson':responseJson})
+    runJson = subprocess.call(["curl",turnoffCommStr])
+    
+    return render_to_response('index.html', {'statusJson':runJson,'status':checkState()})
 
-def checkComStatus():
+#check status
+def checkComStatus(req):
+    return render_to_response('index.html', {'status':checkState()})
+
+
+def checkState():
     checkCommStr = api_checkstatus()
-    responseJson = subprocess.call(["curl",checkCommStr])
-    return render_to_response('index.html', {'status':responseJson})
-
+    responseJson = subprocess.check_output(["curl",checkCommStr])
+    responseJson = eval(responseJson)
+    return responseJson['UHostSet'][0]['State']
 
 #turnoff()
